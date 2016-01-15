@@ -23,8 +23,9 @@ func PrepareRelation(rel *element.Relation, srid int, maxRingGap float64) (Prepa
 		return PreparedRelation{}, err
 	}
 
-	rel.Tags = relationTags(rel.Tags, rings[0].ways[0].Tags)
-
+	if rel.Tags["type"] == "multipolygon" && len(rel.Tags) == 1 {
+		rel.Tags = relationTags(rel.Tags, rings[0].ways[0].Tags) //merge the Relation.Tags with the Tags of the outer way was removed
+	}
 	return PreparedRelation{rings, rel, srid}, nil
 }
 
