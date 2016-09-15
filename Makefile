@@ -34,7 +34,7 @@ clean:
 	rm -f imposm3
 	(cd test && make clean)
 
-test: test-unit test-system
+test: test-unit
 
 test-unit: imposm3
 	$(GO) test ./... -i
